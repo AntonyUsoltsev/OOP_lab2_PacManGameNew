@@ -1,6 +1,6 @@
 package nsu.fit.usoltsev.pacmangamenew.Control;
 
-import javafx.scene.Group;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.Scene;
 import javafx.scene.input.KeyCode;
 import nsu.fit.usoltsev.pacmangamenew.Model.Matrix;
@@ -10,16 +10,12 @@ public class PacManController {
 
     static PacManModel pacManModel;
 
-    public PacManController(Group root) {
+    public PacManController(AnchorPane root) {
         pacManModel = new PacManModel(0, 0, Matrix.CELL_SIZE * Matrix.CELL_X_COUNT / 2, Matrix.CELL_SIZE * (Matrix.CELL_Y_COUNT / 2 + 1), "RIGHT", root);
     }
 
     public static void control(Scene scene) {
-
-
         scene.setOnKeyPressed(event -> {
-
-
             if (event.getCode() == KeyCode.RIGHT) {
                 pacManModel.setKeyPressed("RIGHT");
                 pacManModel.setxVelocityChange(2);

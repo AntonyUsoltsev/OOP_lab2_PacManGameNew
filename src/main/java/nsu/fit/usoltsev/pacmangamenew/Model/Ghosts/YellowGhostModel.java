@@ -1,11 +1,11 @@
 package nsu.fit.usoltsev.pacmangamenew.Model.Ghosts;
 
-import javafx.scene.Group;
+import javafx.scene.layout.AnchorPane;
 import nsu.fit.usoltsev.pacmangamenew.View.Ghosts.YellowGhostView;
 
 public class YellowGhostModel extends GhostModel {
     //648
-    public YellowGhostModel(Group root){
+    public YellowGhostModel(AnchorPane root){
         ghostView = new YellowGhostView(root);
         xPosition = 624;
         yPosition = 24;

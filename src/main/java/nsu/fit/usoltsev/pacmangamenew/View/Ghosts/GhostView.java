@@ -1,6 +1,6 @@
 package nsu.fit.usoltsev.pacmangamenew.View.Ghosts;
 
-import javafx.scene.Group;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import nsu.fit.usoltsev.pacmangamenew.Model.Matrix;
@@ -11,7 +11,7 @@ public class GhostView {
     protected Image GhostImage;
     protected ImageView Ghost;
 
-//    public GhostView(Group root, File GhostFile) {
+//    public GhostView(AnchorPane root, File GhostFile) {
 //        GhostImage = new Image(GhostFile.toURI().toString());
 //        Ghost = new ImageView();
 //        root.getChildren().add(Ghost);

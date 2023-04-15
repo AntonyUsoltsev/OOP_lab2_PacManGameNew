@@ -1,9 +1,7 @@
 package nsu.fit.usoltsev.pacmangamenew.View;
-
-import javafx.scene.Group;
-import javafx.scene.layout.GridPane;
+;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
-import javafx.scene.shape.Line;
 import javafx.scene.shape.Rectangle;
 import nsu.fit.usoltsev.pacmangamenew.Model.*;
 
@@ -21,7 +19,7 @@ public class FieldView {
         return rect;
     }
 
-    public void drawBorders(Group root, int[][] matrix) {
+    public void drawBorders(AnchorPane root, int[][] matrix) {
         for (int i = 0; i < Matrix.CELL_X_COUNT; i++) {
             for (int j = 0; j < Matrix.CELL_Y_COUNT; j++) {
                 if (matrix[i][j] == 1) {

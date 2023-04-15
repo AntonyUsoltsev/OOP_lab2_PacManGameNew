@@ -1,7 +1,7 @@
 package nsu.fit.usoltsev.pacmangamenew.Model;
 
 import javafx.animation.AnimationTimer;
-import javafx.scene.Group;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.Scene;
 import nsu.fit.usoltsev.pacmangamenew.Control.PacManController;
 import nsu.fit.usoltsev.pacmangamenew.Model.Ghosts.*;
@@ -79,7 +79,7 @@ public class PacManModel {
 //        this.yVelocity = yVelocity;
 //    }
 
-    public PacManModel(int xVelocity, int yVelocity, int xPosition, int yPosition, String direction, Group root) {
+    public PacManModel(int xVelocity, int yVelocity, int xPosition, int yPosition, String direction, AnchorPane root) {
         this.xVelocity = xVelocity;
         this.yVelocity = yVelocity;
         this.xPosition = xPosition;
@@ -104,7 +104,7 @@ public class PacManModel {
         pinkGhostModel.ghostMovement();
 
         score = 0;
-        health = 3;
+        health = 1;
     }
 
     void setChanges(int position) {
@@ -224,8 +224,7 @@ public class PacManModel {
 //                                yPosition = Matrix.CELL_SIZE * (Matrix.CELL_Y_COUNT / 2 + 1);
 //                                xVelocity=0;
 //                                yVelocity =0;
-                            //  PacManController.control(scene);
-
+//                              PacManController.control(scene);
                         }
 
                         //super.stop();

@@ -2,20 +2,18 @@ package nsu.fit.usoltsev.pacmangamenew.View;
 
 import nsu.fit.usoltsev.pacmangamenew.Model.*;
 
-import javafx.scene.Group;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
-import javafx.scene.text.Font;
-import javafx.scene.text.Text;
 
 import java.util.HashMap;
 
 public class DotView {
     HashMap<Integer, Rectangle> dotList;
-    Group root;
+    AnchorPane root;
     HealthScoreView healthScoreView;
 
-    public DotView(Group root) {
+    public DotView(AnchorPane root) {
         this.root = root;
         dotList=new HashMap<>();
     }

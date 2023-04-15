@@ -30,7 +30,7 @@ public class GhostModel {
     protected String nextDirection;
     protected final String[] directionArr = {"RIGHT", "LEFT", "UP", "DOWN"};
 
-//    public GhostModel(Group root) {
+//    public GhostModel(AnchorPane root) {
 //        ghostView = new BlueGhostView(root);
 //        xPosition = 24;
 //        yPosition = 24;

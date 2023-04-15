@@ -1,24 +1,28 @@
 package nsu.fit.usoltsev.pacmangamenew.View;
 
-import javafx.scene.Group;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
+import nsu.fit.usoltsev.pacmangamenew.Main;
 import nsu.fit.usoltsev.pacmangamenew.Model.*;
 
 import java.io.File;
+import java.io.IOException;
+import java.util.Objects;
 
 public class HealthScoreView {
-    static Group root;
+    static AnchorPane root;
     static Text scoreText;
     static Image heartImage;
     static ImageView heart1;
     static ImageView heart2;
     static ImageView heart3;
 
-    public static void setRoot(Group root){
+    public static void setRoot(AnchorPane root){
         HealthScoreView.root = root;
     }
     public static void setScore(){
@@ -69,7 +73,7 @@ public class HealthScoreView {
 //        setHealthProperties(heart2, 96,0);
 //        setHealthProperties(heart3, 120,0);
     }
-    public  static  void drawHealth(int health){
+    public static void drawHealth(int health){
         switch (health){
             case(2)->{
                 root.getChildren().remove(heart3);
@@ -78,15 +82,27 @@ public class HealthScoreView {
                 root.getChildren().remove(heart2);
             }
             case(0)->{
-                root.getChildren().remove(heart1);
-                Text lose = new Text("YOU LOSE");
-                lose.setFill(Color.WHITE);
-                lose.setX(160);
-                lose.setY(370);
-                lose.setStroke(Color.RED);
-                lose.setStrokeWidth(5);
-                lose.setFont(new Font(70));
-                root.getChildren().add(lose);
+                try {
+                    root.getChildren().remove(heart1);
+                    Text lose = new Text("YOU LOSE");
+                    lose.setFill(Color.WHITE);
+                    lose.setX(160);
+                    lose.setY(370);
+                    lose.setStroke(Color.RED);
+                    lose.setStrokeWidth(5);
+                    lose.setFont(new Font(70));
+                    root.getChildren().add(lose);
+                   // Thread.sleep(3000);
+                    root.getChildren().clear();
+
+                    root = FXMLLoader.load(Objects.requireNonNull(HealthScoreView.class.getResource("menu.fxml")));
+
+
+                    //TODO may well be listener
+                }
+                 catch (Exception e) {
+                    throw new RuntimeException(e);
+                }
             }
         }
     }

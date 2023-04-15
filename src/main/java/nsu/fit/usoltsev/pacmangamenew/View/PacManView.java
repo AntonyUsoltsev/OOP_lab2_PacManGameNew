@@ -1,6 +1,6 @@
 package nsu.fit.usoltsev.pacmangamenew.View;
 
-import javafx.scene.Group;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
@@ -17,7 +17,7 @@ public class PacManView {
     boolean isClosed = true;
     int i = 0;
 
-    public PacManView(Group root) {
+    public PacManView(AnchorPane root) {
 
         File pacmanRight = new File("./src/main/resources/pictures/PacManPictures/PacmanRight.png");
         File pacmanLeft = new File("./src/main/resources/pictures/PacManPictures/PacmanLeft.png");

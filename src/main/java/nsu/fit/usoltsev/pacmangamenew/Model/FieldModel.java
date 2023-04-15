@@ -1,6 +1,6 @@
 package nsu.fit.usoltsev.pacmangamenew.Model;
 
-import javafx.scene.Group;
+import javafx.scene.layout.AnchorPane;
 import nsu.fit.usoltsev.pacmangamenew.View.FieldView;
 
 public class FieldModel {
@@ -11,7 +11,7 @@ public class FieldModel {
         Matrix.setMatrix();
     }
 
-    public static void viewField(Group root) {
+    public static void viewField(AnchorPane root) {
         fieldView.drawBorders(root, Matrix.matrix);
     }
 }

@@ -1,12 +1,12 @@
 package nsu.fit.usoltsev.pacmangamenew.Model;
 
-import javafx.scene.Group;
+import javafx.scene.layout.AnchorPane;
 import nsu.fit.usoltsev.pacmangamenew.View.DotView;
 
 public class DotModel {
     static DotView dotView;
 
-    public static void setDots(Group root) {
+    public static void setDots(AnchorPane root) {
         dotView = new DotView(root);
 
         for (int i = 0; i < Matrix.CELL_X_COUNT; i++) {
