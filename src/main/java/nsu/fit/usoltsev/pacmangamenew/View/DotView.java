@@ -32,9 +32,6 @@ public class DotView {
     public void removeFromDotList(int x, int y) {
         root.getChildren().remove( dotList.get(y * Matrix.CELL_X_COUNT + x));
         dotList.remove(y * Matrix.CELL_X_COUNT + x);
-
-
     }
-
 
 }

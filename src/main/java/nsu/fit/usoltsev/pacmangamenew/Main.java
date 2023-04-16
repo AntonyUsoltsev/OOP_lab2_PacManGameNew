@@ -10,6 +10,7 @@ import nsu.fit.usoltsev.pacmangamenew.Control.PacManController;
 import nsu.fit.usoltsev.pacmangamenew.Model.DotModel;
 import nsu.fit.usoltsev.pacmangamenew.Model.FieldModel;
 import nsu.fit.usoltsev.pacmangamenew.Model.Matrix;
+import nsu.fit.usoltsev.pacmangamenew.Model.PacManModel;
 import nsu.fit.usoltsev.pacmangamenew.View.WindowView;
 
 import java.io.IOException;
@@ -26,16 +27,17 @@ public class Main extends javafx.application.Application {
         Scene scene = new Scene(root, Matrix.CELL_SIZE * Matrix.CELL_X_COUNT, Matrix.CELL_SIZE * Matrix.CELL_Y_COUNT);
         stage.setScene(scene);
         Button startBtn = (Button) root.lookup("#startButton");
+        Button endBtn = (Button) root.lookup("#endButton");
+        PacManController.stage = stage;
+        PacManController.scene = scene;
+        PacManController.root = root;
         startBtn.setOnAction(event -> {
-            root.getChildren().clear();
-            WindowView.setWindowOptions(stage, scene);
-            startBtn.setVisible(false);
-            FieldModel.viewField(root);
-            DotModel.setDots(root);
-            PacManController pacManController = new PacManController(root);
-            pacManController.control(scene);
+            PacManController.newGame();
         });
-        stage.setScene(scene);
+        endBtn.setOnAction(event -> {
+            System.exit(0);
+        });
+        stage.setScene( PacManController.scene);
         stage.setResizable(false);
         stage.show();
         }

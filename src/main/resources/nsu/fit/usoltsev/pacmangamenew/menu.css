@@ -1,9 +1,14 @@
 
 
 #startButton{
-    -fx-graphic: url(/pictures/Start.png);
+    -fx-graphic: url(../../../../pictures/Start.png);
 }
 
 #endButton{
-    -fx-graphic: url(/pictures/Exit.png);
+    -fx-graphic: url(../../../../pictures/Exit.png);
+}
+.button {
+    -fx-background-color: transparent;
+    -fx-background-size: contain;
+
 }

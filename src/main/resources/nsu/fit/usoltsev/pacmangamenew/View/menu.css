@@ -1,9 +1,0 @@
-
-
-#startButton{
-    -fx-graphic: url(/pictures/Start.png);
-}
-
-#endButton{
-    -fx-graphic: url(/pictures/Exit.png);
-}

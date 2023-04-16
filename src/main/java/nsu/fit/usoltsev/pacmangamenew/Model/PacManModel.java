@@ -38,47 +38,6 @@ public class PacManModel {
         this.keyPressed = keyPressed;
     }
 
-//
-//    public String getDirection() {
-//        return direction;
-//    }
-//
-//    public void setDirection(String direction) {
-//        this.direction = direction;
-//    }
-//
-//    public int getxPosition() {
-//        return xPosition;
-//    }
-//
-//    public void setxPosition(int xPosition) {
-//        this.xPosition = xPosition;
-//    }
-//
-//    public int getyPosition() {
-//        return yPosition;
-//    }
-//
-//    public void setyPosition(int yPosition) {
-//        this.yPosition = yPosition;
-//    }
-//
-//    public int getxVelocity() {
-//        return xVelocity;
-//    }
-//
-//    public void setxVelocity(int xVelocity) {
-//        this.xVelocity = xVelocity;
-//    }
-//
-//    public int getyVelocity() {
-//        return yVelocity;
-//    }
-//
-//    public void setyVelocity(int yVelocity) {
-//        this.yVelocity = yVelocity;
-//    }
-
     public PacManModel(int xVelocity, int yVelocity, int xPosition, int yPosition, String direction, AnchorPane root) {
         this.xVelocity = xVelocity;
         this.yVelocity = yVelocity;
@@ -89,7 +48,11 @@ public class PacManModel {
         this.xVelocityChange = 0;
         this.yVelocityChange = 0;
         this.keyPressed = "RIGHT";
-        pacManView = new PacManView(root);
+
+        this.score = 0;
+        this.health = 3;
+
+        pacManView = new PacManView(root,health);
 
         blueGhostModel = new BlueGhostModel(root);
         blueGhostModel.ghostMovement();
@@ -103,8 +66,7 @@ public class PacManModel {
         pinkGhostModel = new PinkGhostModel(root);
         pinkGhostModel.ghostMovement();
 
-        score = 0;
-        health = 1;
+
     }
 
     void setChanges(int position) {
@@ -128,7 +90,6 @@ public class PacManModel {
 
                 if (ghostBump(blueGhostModel) || ghostBump(redGhostModel) ||
                         ghostBump(pinkGhostModel) || ghostBump(yellowGhostModel)) {
-                    System.out.println("touch");
                     keyPressed = "GHOST_BUMP";
                     health--;
                 }
@@ -162,7 +123,7 @@ public class PacManModel {
                             if (xPosition % Matrix.CELL_SIZE <= -Matrix.CELL_SIZE / 2) {
                                 //System.out.println(xPosition % Matrix.CELL_SIZE);
                                 xPosition = Matrix.CELL_X_COUNT * Matrix.CELL_SIZE + Matrix.CELL_X_COUNT / 2;
-                                System.out.println(xPosition);
+                              //  System.out.println(xPosition);
                             }
                         } else if (yPosition % Matrix.CELL_SIZE == 0 && xPosition % Matrix.CELL_SIZE == 0) {
                             if (Matrix.matrix[xPosition / Matrix.CELL_SIZE - 1][yPosition / Matrix.CELL_SIZE] == 1) {
@@ -205,29 +166,18 @@ public class PacManModel {
                     case ("GHOST_BUMP") -> {
                         xVelocity = 0;
                         yVelocity = 0;
-                        xPosition = Matrix.CELL_SIZE * Matrix.CELL_X_COUNT / 2;
-                        yPosition = Matrix.CELL_SIZE * (Matrix.CELL_Y_COUNT / 2 + 1);
+                        if(health != 0) {
+                            xPosition = Matrix.CELL_SIZE * Matrix.CELL_X_COUNT / 2;
+                            yPosition = Matrix.CELL_SIZE * (Matrix.CELL_Y_COUNT / 2 + 1);
+                        }
                         if (health == 0) {
                             redGhostModel.getTimer().stop();
                             pinkGhostModel.getTimer().stop();
                             yellowGhostModel.getTimer().stop();
                             blueGhostModel.getTimer().stop();
                             super.stop();
-//                                try {
-//                                    sleep(1000);
-//                                } catch (InterruptedException e) {
-//                                    throw new RuntimeException(e);
-//                                }
-//                                health = 3;
-//                                keyPressed = "RIGHT";
-//                                xPosition = Matrix.CELL_SIZE * Matrix.CELL_X_COUNT / 2;
-//                                yPosition = Matrix.CELL_SIZE * (Matrix.CELL_Y_COUNT / 2 + 1);
-//                                xVelocity=0;
-//                                yVelocity =0;
-//                              PacManController.control(scene);
                         }
 
-                        //super.stop();
                     }
                     case("WIN")->{
                         redGhostModel.getTimer().stop();
@@ -247,6 +197,4 @@ public class PacManModel {
         timer.start();
 
     }
-
-
 }

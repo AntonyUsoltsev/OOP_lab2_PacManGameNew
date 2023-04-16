@@ -17,7 +17,7 @@ public class PacManView {
     boolean isClosed = true;
     int i = 0;
 
-    public PacManView(AnchorPane root) {
+    public PacManView(AnchorPane root,int health) {
 
         File pacmanRight = new File("./src/main/resources/pictures/PacManPictures/PacmanRight.png");
         File pacmanLeft = new File("./src/main/resources/pictures/PacManPictures/PacmanLeft.png");
@@ -43,7 +43,7 @@ public class PacManView {
         root.getChildren().add(pacMan);
         HealthScoreView.setRoot(root);
         HealthScoreView.setScore();
-        HealthScoreView.setHealth();
+        HealthScoreView.setHealth(health);
     }
 
     void setImage(Image image, Image imageClosed) {

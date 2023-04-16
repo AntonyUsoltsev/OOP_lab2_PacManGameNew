@@ -11,7 +11,7 @@
 >
     <ImageView fitHeight="190.0" fitWidth="583.0" layoutX="55.0" layoutY="87.0" pickOnBounds="true"
                preserveRatio="true">
-        <Image url="@/pictures/PacmanLogo.png"/>
+        <Image url="@../../../../pictures/PacmanLogo.png"/>
     </ImageView>
     <Button fx:id="startButton" alignment="TOP_CENTER" layoutX="235.0" layoutY="345.0" mnemonicParsing="false"
             textOverrun="LEADING_ELLIPSIS">
