@@ -1,14 +1,16 @@
-
-
+#back {
+    -fx-background-image: url(../../../../pictures/background.jpg);
+    -fx-background-size: cover;
+}
 #startButton{
-    -fx-graphic: url(../../../../pictures/Start.png);
+    -fx-graphic: url(../../../../pictures/newStart.png);
 }
 
 #endButton{
-    -fx-graphic: url(../../../../pictures/Exit.png);
+    -fx-graphic: url(../../../../pictures/newExit.png);
 }
 .button {
     -fx-background-color: transparent;
     -fx-background-size: contain;
-
 }
+

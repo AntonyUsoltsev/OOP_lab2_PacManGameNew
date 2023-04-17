@@ -1,28 +1,30 @@
 package nsu.fit.usoltsev.pacmangamenew.Control;
 
+import javafx.geometry.Insets;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.Scene;
-import javafx.stage.Stage;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundFill;
+import javafx.scene.layout.CornerRadii;
+import javafx.scene.paint.Color;
 import nsu.fit.usoltsev.pacmangamenew.Model.DotModel;
 import nsu.fit.usoltsev.pacmangamenew.Model.FieldModel;
 import nsu.fit.usoltsev.pacmangamenew.Model.Matrix;
 import nsu.fit.usoltsev.pacmangamenew.Model.PacManModel;
-import nsu.fit.usoltsev.pacmangamenew.View.WindowView;
 
 public class PacManController {
     private static PacManModel pacManModel;
-    public static Stage stage;
     public static Scene scene;
     public static AnchorPane root;
 
     public static void newGame() {
         root.getChildren().clear();
-        WindowView.setWindowOptions(stage, scene);
+        root.setBackground(new Background(new BackgroundFill(Color.rgb(2, 0, 9),new CornerRadii(0), Insets.EMPTY)));
         Matrix.setMatrix();
         FieldModel.viewField(root);
         DotModel.setDots(root);
         pacManModel = new PacManModel(0, 0, Matrix.CELL_SIZE * Matrix.CELL_X_COUNT / 2, Matrix.CELL_SIZE * (Matrix.CELL_Y_COUNT / 2 + 1), "RIGHT", root);
-        PacManController.control(scene);
+        control(scene);
     }
 
     public static void control(Scene scene) {

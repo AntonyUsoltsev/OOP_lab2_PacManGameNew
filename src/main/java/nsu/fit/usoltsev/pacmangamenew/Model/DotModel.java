@@ -18,13 +18,11 @@ public class DotModel {
                 }
             }
         }
-        System.out.println(Matrix.MAX_SCORE);
     }
 
     public static void removeDot(int xPos, int yPos) {
         Matrix.matrix[xPos][yPos] = Matrix.EMPTY;
         dotView.removeFromDotList(xPos, yPos);
     }
-
 
 }

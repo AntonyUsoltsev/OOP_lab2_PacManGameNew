@@ -7,9 +7,9 @@
 
 <AnchorPane prefHeight="768.0" prefWidth="672.0" stylesheets="@win.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1">
     <children>
-        <Text fill="#FFE800" fontSmoothingType="LCD" layoutX="191.0" layoutY="283.0" stroke="BLACK" strokeType="OUTSIDE" text="YOU WIN">
+        <Text fill="#FFE800" fontSmoothingType="LCD" layoutX="145.0" layoutY="284.0" stroke="BLACK" strokeType="OUTSIDE" text="YOU WIN">
             <font>
-                <Font size="69.0" />
+                <Font name="Snap ITC" size="69.0" />
             </font>
         </Text>
         <Button fx:id="startButton" layoutX="228.0" layoutY="356.0" mnemonicParsing="false" prefHeight="69.0" prefWidth="216.0" textOverrun="LEADING_ELLIPSIS">

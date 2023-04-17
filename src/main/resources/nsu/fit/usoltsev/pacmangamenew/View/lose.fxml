@@ -7,9 +7,9 @@
 
 <AnchorPane prefHeight="768.0" prefWidth="672.0" stylesheets="@lose.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <Text fill="#fc0000" fontSmoothingType="LCD" layoutX="180.0" layoutY="283.0" stroke="BLACK" strokeType="OUTSIDE" text="YOU LOSE">
+      <Text fill="#fc0000" fontSmoothingType="LCD" layoutX="122.0" layoutY="278.0" stroke="BLACK" strokeType="OUTSIDE" text="YOU LOSE">
          <font>
-            <Font size="69.0" />
+            <Font name="Snap ITC" size="69.0" />
          </font>
       </Text>
       <Button fx:id="startButton" layoutX="228.0" layoutY="356.0" mnemonicParsing="false" prefHeight="69.0" prefWidth="216.0" textOverrun="LEADING_ELLIPSIS">

@@ -2,7 +2,6 @@ package nsu.fit.usoltsev.pacmangamenew.Model;
 
 import javafx.animation.AnimationTimer;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.Scene;
 
 import nsu.fit.usoltsev.pacmangamenew.Model.Ghosts.*;
 import nsu.fit.usoltsev.pacmangamenew.View.PacManView;
@@ -43,7 +42,7 @@ public class PacManModel {
         this.yVelocityChange = 0;
         this.keyPressed = "RIGHT";
 
-        this.score = 2000;
+        this.score = 0;
         this.health = 3;
 
         pacManView = new PacManView(root, health);
@@ -122,7 +121,7 @@ public class PacManModel {
                             if (Matrix.matrix[xPosition / Matrix.CELL_SIZE - 1][yPosition / Matrix.CELL_SIZE] == 1) {
                                 xVelocity = 0;
                             } else if (xPosition / Matrix.CELL_SIZE >= Matrix.CELL_X_COUNT) {
-                                System.out.println("HI");
+                                System.out.println();
                             } else if (Matrix.matrix[xPosition / Matrix.CELL_SIZE][yPosition / Matrix.CELL_SIZE] == 2) {
 
                                 DotModel.removeDot(xPosition / Matrix.CELL_SIZE, yPosition / Matrix.CELL_SIZE);//????
@@ -130,7 +129,7 @@ public class PacManModel {
                             }
                         }
                         //TODO: fix dots
-                        //TODO: add method
+
 
                     }
                     case ("UP") -> {

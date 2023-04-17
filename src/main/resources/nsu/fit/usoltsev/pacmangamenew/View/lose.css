@@ -1,10 +1,10 @@
 #startButton{
     /*-fx-background-color: RED;*/
-    -fx-graphic: url(../../../../../pictures/Start.png);
+    -fx-graphic: url(../../../../../pictures/newStart.png);
 }
 
 #endButton{
-    -fx-graphic: url(../../../../../pictures/Exit.png);
+    -fx-graphic: url(../../../../../pictures/newExit.png);
 }
 
 .button {

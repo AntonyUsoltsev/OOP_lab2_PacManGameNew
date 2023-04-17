@@ -22,7 +22,6 @@ public class DotView {
 
         Rectangle dot = new Rectangle(Matrix.CELL_SIZE / 4, Matrix.CELL_SIZE / 4);
         dot.setFill(Color.WHITE);
-        //dot.setStroke(Color.WHITE);
         dot.setX(x * Matrix.CELL_SIZE + (Matrix.CELL_SIZE - Matrix.CELL_SIZE / 4) / 2);
         dot.setY(y * Matrix.CELL_SIZE + (Matrix.CELL_SIZE - Matrix.CELL_SIZE / 4) / 2);
         dotList.put(y * Matrix.CELL_X_COUNT + x, dot);

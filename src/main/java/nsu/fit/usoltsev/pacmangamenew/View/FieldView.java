@@ -1,6 +1,5 @@
 package nsu.fit.usoltsev.pacmangamenew.View;
 
-;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
