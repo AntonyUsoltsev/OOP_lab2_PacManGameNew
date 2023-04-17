@@ -6,12 +6,8 @@ import nsu.fit.usoltsev.pacmangamenew.View.FieldView;
 public class FieldModel {
     static FieldView fieldView;
 
-    static {
-        fieldView = new FieldView();
-        Matrix.setMatrix();
-    }
-
     public static void viewField(AnchorPane root) {
+        fieldView = new FieldView();
         fieldView.drawBorders(root, Matrix.matrix);
     }
 }

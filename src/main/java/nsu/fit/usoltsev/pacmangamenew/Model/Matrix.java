@@ -1,6 +1,7 @@
 package nsu.fit.usoltsev.pacmangamenew.Model;
 
 public class Matrix {
+
     public static final int CELL_SIZE = 24;    //Должно быть четным.
     public static final int CELL_X_COUNT = 28; //Должно быть четным.
     public static final int CELL_Y_COUNT = 32; //Должно быть четным.
@@ -16,6 +17,8 @@ public class Matrix {
 
     public static int[][] matrix = new int[CELL_X_COUNT][CELL_Y_COUNT];
 
+
+    //TODO: create data file
     public static void setMatrix() {
         if (CELL_SIZE % 2 != 0 || CELL_X_COUNT % 2 != 0 || CELL_Y_COUNT % 2 != 0) {
             throw new IllegalArgumentException();

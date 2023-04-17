@@ -12,7 +12,6 @@ public class GhostModel {
     public AnimationTimer getTimer() {
         return timer;
     }
-
     protected AnimationTimer timer;
     protected int xVelocity;
     protected int yVelocity;
@@ -63,6 +62,7 @@ public class GhostModel {
                         } else if (yPosition % Matrix.CELL_SIZE == 0 && xPosition % Matrix.CELL_SIZE == 0) {
                             if (Matrix.matrix[xPosition / Matrix.CELL_SIZE + 1][yPosition / Matrix.CELL_SIZE] == 1) {
                                 xVelocity = 0;
+                                //TODO:fix random
                                 Random random = new Random();
                                 int randomNumber = random.nextInt(4);
                                 nextDirection = directionArr[randomNumber];

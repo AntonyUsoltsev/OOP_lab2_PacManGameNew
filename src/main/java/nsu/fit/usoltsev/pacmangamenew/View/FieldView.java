@@ -1,4 +1,5 @@
 package nsu.fit.usoltsev.pacmangamenew.View;
+
 ;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
@@ -6,12 +7,9 @@ import javafx.scene.shape.Rectangle;
 import nsu.fit.usoltsev.pacmangamenew.Model.*;
 
 public class FieldView {
-    public FieldView() {
-
-    }
 
     private Rectangle createBorder(int x, int y, float offsetX, float offsetY) {
-        Rectangle rect = new Rectangle(Matrix.CELL_SIZE/2 , Matrix.CELL_SIZE/2 );
+        Rectangle rect = new Rectangle((float) Matrix.CELL_SIZE / 2, (float) Matrix.CELL_SIZE / 2);
         rect.setFill(Color.BLACK);
         rect.setStroke(Color.BLUE);
         rect.setX((x + offsetX) * Matrix.CELL_SIZE);

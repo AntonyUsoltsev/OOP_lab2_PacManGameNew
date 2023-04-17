@@ -3,22 +3,16 @@ package nsu.fit.usoltsev.pacmangamenew.Model;
 import javafx.animation.AnimationTimer;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.Scene;
-import nsu.fit.usoltsev.pacmangamenew.Control.PacManController;
+
 import nsu.fit.usoltsev.pacmangamenew.Model.Ghosts.*;
 import nsu.fit.usoltsev.pacmangamenew.View.PacManView;
 
-import static java.lang.Thread.sleep;
 
 public class PacManModel {
-    private int xVelocity;
-    private int yVelocity;
-    private int xPosition;
-    private int yPosition;
+    private int xVelocity, yVelocity, xPosition, yPosition;
     private String direction;
-    private int xVelocityChange;
-    private int yVelocityChange;
-    private int score;
-    private int health;
+    private int score, health;
+    private int xVelocityChange, yVelocityChange;
     private String keyPressed;
     private final PacManView pacManView;
     private final BlueGhostModel blueGhostModel;
@@ -49,10 +43,10 @@ public class PacManModel {
         this.yVelocityChange = 0;
         this.keyPressed = "RIGHT";
 
-        this.score = 0;
+        this.score = 2000;
         this.health = 3;
 
-        pacManView = new PacManView(root,health);
+        pacManView = new PacManView(root, health);
 
         blueGhostModel = new BlueGhostModel(root);
         blueGhostModel.ghostMovement();
@@ -65,11 +59,9 @@ public class PacManModel {
 
         pinkGhostModel = new PinkGhostModel(root);
         pinkGhostModel.ghostMovement();
-
-
     }
 
-    void setChanges(int position) {
+    private void setChanges(int position) {
         if (position % Matrix.CELL_SIZE == 0) {
             xVelocity = xVelocityChange;
             yVelocity = yVelocityChange;
@@ -77,12 +69,19 @@ public class PacManModel {
         }
     }
 
-    boolean ghostBump(GhostModel ghostModel) {
+    private boolean ghostBump(GhostModel ghostModel) {
         return (xPosition - 1 <= ghostModel.getxPosition() && xPosition + 1 >= ghostModel.getxPosition()
                 && yPosition - 1 <= ghostModel.getyPosition() && yPosition + 1 >= ghostModel.getyPosition());
     }
 
-    public void movement(Scene scene) {
+    private void eatDot(){
+        if (Matrix.matrix[xPosition / Matrix.CELL_SIZE][yPosition / Matrix.CELL_SIZE] == Matrix.DOT) {
+            DotModel.removeDot(xPosition / Matrix.CELL_SIZE, yPosition / Matrix.CELL_SIZE);
+            score += Matrix.DOT_SCORE;
+        }
+    }
+
+    public void movement() {
 
         AnimationTimer timer = new AnimationTimer() {
             @Override
@@ -94,14 +93,10 @@ public class PacManModel {
                     health--;
                 }
 
-                if (score == Matrix.MAX_SCORE) {
-                    keyPressed = "WIN";
-                }
 
                 switch (keyPressed) {
                     case ("RIGHT") -> {
                         setChanges(yPosition);
-                        // System.out.println(yPosition+" " +xPosition);
                         if (xPosition / Matrix.CELL_SIZE + 1 >= Matrix.CELL_X_COUNT) {
                             if (xPosition % Matrix.CELL_SIZE > Matrix.CELL_SIZE / 2) {
                                 xPosition = -Matrix.CELL_X_COUNT / 2;
@@ -110,10 +105,8 @@ public class PacManModel {
                             if (Matrix.matrix[xPosition / Matrix.CELL_SIZE + 1][yPosition / Matrix.CELL_SIZE] == 1) {
                                 xVelocity = 0;
                             }
-                            if (Matrix.matrix[xPosition / Matrix.CELL_SIZE][yPosition / Matrix.CELL_SIZE] == 2) {
-                                DotModel.removeDot(xPosition / Matrix.CELL_SIZE, yPosition / Matrix.CELL_SIZE);
-                                score += 10;
-                            }
+                            eatDot();
+
                         }
                     }
                     case ("LEFT") -> {
@@ -123,7 +116,7 @@ public class PacManModel {
                             if (xPosition % Matrix.CELL_SIZE <= -Matrix.CELL_SIZE / 2) {
                                 //System.out.println(xPosition % Matrix.CELL_SIZE);
                                 xPosition = Matrix.CELL_X_COUNT * Matrix.CELL_SIZE + Matrix.CELL_X_COUNT / 2;
-                              //  System.out.println(xPosition);
+                                //  System.out.println(xPosition);
                             }
                         } else if (yPosition % Matrix.CELL_SIZE == 0 && xPosition % Matrix.CELL_SIZE == 0) {
                             if (Matrix.matrix[xPosition / Matrix.CELL_SIZE - 1][yPosition / Matrix.CELL_SIZE] == 1) {
@@ -131,11 +124,13 @@ public class PacManModel {
                             } else if (xPosition / Matrix.CELL_SIZE >= Matrix.CELL_X_COUNT) {
                                 System.out.println("HI");
                             } else if (Matrix.matrix[xPosition / Matrix.CELL_SIZE][yPosition / Matrix.CELL_SIZE] == 2) {
+
                                 DotModel.removeDot(xPosition / Matrix.CELL_SIZE, yPosition / Matrix.CELL_SIZE);//????
                                 score += 10;
                             }
                         }
-
+                        //TODO: fix dots
+                        //TODO: add method
 
                     }
                     case ("UP") -> {
@@ -144,10 +139,7 @@ public class PacManModel {
                             if (Matrix.matrix[xPosition / Matrix.CELL_SIZE][yPosition / Matrix.CELL_SIZE - 1] == 1) {
                                 yVelocity = 0;
                             }
-                            if (Matrix.matrix[xPosition / Matrix.CELL_SIZE][yPosition / Matrix.CELL_SIZE] == 2) {
-                                DotModel.removeDot(xPosition / Matrix.CELL_SIZE, yPosition / Matrix.CELL_SIZE);
-                                score += 10;
-                            }
+                            eatDot();
                         }
                     }
                     case ("DOWN") -> {
@@ -156,17 +148,14 @@ public class PacManModel {
                             if (Matrix.matrix[xPosition / Matrix.CELL_SIZE][yPosition / Matrix.CELL_SIZE + 1] == 1) {
                                 yVelocity = 0;
                             }
-                            if (Matrix.matrix[xPosition / Matrix.CELL_SIZE][yPosition / Matrix.CELL_SIZE] == 2) {
-                                DotModel.removeDot(xPosition / Matrix.CELL_SIZE, yPosition / Matrix.CELL_SIZE);
-                                score += 10;
-                            }
+                            eatDot();
 
                         }
                     }
                     case ("GHOST_BUMP") -> {
                         xVelocity = 0;
                         yVelocity = 0;
-                        if(health != 0) {
+                        if (health != 0) {
                             xPosition = Matrix.CELL_SIZE * Matrix.CELL_X_COUNT / 2;
                             yPosition = Matrix.CELL_SIZE * (Matrix.CELL_Y_COUNT / 2 + 1);
                         }
@@ -179,13 +168,15 @@ public class PacManModel {
                         }
 
                     }
-                    case("WIN")->{
-                        redGhostModel.getTimer().stop();
-                        pinkGhostModel.getTimer().stop();
-                        yellowGhostModel.getTimer().stop();
-                        blueGhostModel.getTimer().stop();
-                        super.stop();
-                    }
+                }
+                if (score >= Matrix.MAX_SCORE) {
+                    xVelocity = 0;
+                    yVelocity = 0;
+                    redGhostModel.getTimer().stop();
+                    pinkGhostModel.getTimer().stop();
+                    yellowGhostModel.getTimer().stop();
+                    blueGhostModel.getTimer().stop();
+                    super.stop();
                 }
 
                 xPosition += xVelocity;

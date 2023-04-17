@@ -1,7 +1,6 @@
 package nsu.fit.usoltsev.pacmangamenew.View;
 
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.image.Image;
@@ -9,13 +8,11 @@ import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
-import javafx.stage.Stage;
+
 import nsu.fit.usoltsev.pacmangamenew.Control.PacManController;
-import nsu.fit.usoltsev.pacmangamenew.Main;
 import nsu.fit.usoltsev.pacmangamenew.Model.*;
 
 import java.io.File;
-import java.io.IOException;
 import java.util.LinkedList;
 import java.util.Objects;
 
@@ -51,13 +48,31 @@ public class HealthScoreView {
         }
     }
 
+    public static void drawScore(int score) {
+        scoreText.setText(Integer.toString(score));
+        if (score >= Matrix.MAX_SCORE) {
+            try {
+                root.getChildren().add(FXMLLoader.load(Objects.requireNonNull(HealthScoreView.class.getResource("win.fxml"))));
+                System.out.println("win");
+
+                Button startBtn = (Button) root.lookup("#startButton");
+                startBtn.setOnAction(event -> PacManController.newGame());
+
+                Button endBtn = (Button) root.lookup("#endButton");
+                endBtn.setOnAction(event -> System.exit(0));
+            } catch (Exception e) {
+                throw new RuntimeException(e);
+            }
+        }
+
+    }
+
     public static void drawHealth(int health) {
         if (health < hearts.size()) {
             root.getChildren().remove(hearts.getLast());
             hearts.removeLast();
             if (hearts.size() == 0) {
                 try {
-                    //  root.getChildren().clear();
                     root.getChildren().add(FXMLLoader.load(Objects.requireNonNull(HealthScoreView.class.getResource("lose.fxml"))));
 
                     Button startBtn = (Button) root.lookup("#startButton");
@@ -75,24 +90,5 @@ public class HealthScoreView {
 
     }
 
-    public static void drawScore(int score) {
-        scoreText.setText(Integer.toString(score));
-        if (score == Matrix.MAX_SCORE) {
-            try {
-                Thread.sleep(1000);
-                root.getChildren().clear();
-                root.getChildren().add(FXMLLoader.load(Objects.requireNonNull(HealthScoreView.class.getResource("win.fxml"))));
-                Button startBtn = (Button) root.lookup("#startButton");
-                startBtn.setOnAction(event -> {
-                    PacManController.newGame();
-                });
-                Button endBtn = (Button) root.lookup("#endButton");
-                endBtn.setOnAction(event -> {
-                    System.exit(0);
-                });
-            } catch (Exception e) {
-                throw new RuntimeException(e);
-            }
-        }
-    }
+
 }

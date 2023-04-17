@@ -3,21 +3,17 @@ package nsu.fit.usoltsev.pacmangamenew.View;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.paint.Color;
-import javafx.scene.text.Font;
-import javafx.scene.text.Text;
 import nsu.fit.usoltsev.pacmangamenew.Model.*;
 
 import java.io.File;
 
 public class PacManView {
-    static Image imageRight, imageLeft, imageUp, imageDown;
-    static Image imageRightClosed, imageLeftClosed, imageUpClosed, imageDownClosed;
-    ImageView pacMan;
-    boolean isClosed = true;
-    int i = 0;
+    private static Image imageRight, imageLeft, imageUp, imageDown;
+    private static Image imageRightClosed, imageLeftClosed, imageUpClosed, imageDownClosed;
+    private final ImageView pacMan;
+    private int i = 0;
 
-    public PacManView(AnchorPane root,int health) {
+    public PacManView(AnchorPane root, int health) {
 
         File pacmanRight = new File("./src/main/resources/pictures/PacManPictures/PacmanRight.png");
         File pacmanLeft = new File("./src/main/resources/pictures/PacManPictures/PacmanLeft.png");
@@ -46,7 +42,7 @@ public class PacManView {
         HealthScoreView.setHealth(health);
     }
 
-    void setImage(Image image, Image imageClosed) {
+    void setPacManImage(Image image, Image imageClosed) {
         if (i < 10) {
             pacMan.setImage(image);
             i++;
@@ -54,31 +50,22 @@ public class PacManView {
             i = 0;
         } else {
             pacMan.setImage(imageClosed);
-            isClosed = false;
             i++;
         }
     }
 
-    public void  viewPacMan(int xPosition, int yPosition, String direction, int score, int health) {
+    public void viewPacMan(int xPosition, int yPosition, String direction, int score, int health) {
         switch (direction) {
-            case "RIGHT" -> {
-                setImage(imageRight, imageRightClosed);
-            }
-            case "LEFT" -> {
-                setImage(imageLeft, imageLeftClosed);
-            }
-            case "UP" -> {
-                setImage(imageUp, imageUpClosed);
-            }
-            case "DOWN" -> {
-                setImage(imageDown, imageDownClosed);
-            }
+            case "RIGHT" -> setPacManImage(imageRight, imageRightClosed);
+            case "LEFT" -> setPacManImage(imageLeft, imageLeftClosed);
+            case "UP" -> setPacManImage(imageUp, imageUpClosed);
+            case "DOWN" -> setPacManImage(imageDown, imageDownClosed);
         }
         pacMan.setFitWidth(Matrix.CELL_SIZE);
         pacMan.setFitHeight(Matrix.CELL_SIZE);
         pacMan.setX(xPosition);
         pacMan.setY(yPosition);
-        HealthScoreView.drawHealth(health);
         HealthScoreView.drawScore(score);
+        HealthScoreView.drawHealth(health);
     }
 }

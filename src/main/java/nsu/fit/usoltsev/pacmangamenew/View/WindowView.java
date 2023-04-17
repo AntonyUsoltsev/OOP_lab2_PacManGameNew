@@ -23,6 +23,4 @@ public class WindowView {
         stage.getIcons().add(icon);
         stage.setTitle("Pac Man");
     }
-
-
 }
