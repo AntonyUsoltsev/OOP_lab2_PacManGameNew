@@ -6,6 +6,10 @@ import javafx.scene.layout.AnchorPane;
 import nsu.fit.usoltsev.pacmangamenew.Model.Ghosts.*;
 import nsu.fit.usoltsev.pacmangamenew.View.PacManView;
 
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.HashMap;
 
 public class PacManModel {
     private int xVelocity, yVelocity, xPosition, yPosition;
@@ -14,10 +18,12 @@ public class PacManModel {
     private int xVelocityChange, yVelocityChange;
     private String keyPressed;
     private final PacManView pacManView;
-    private final BlueGhostModel blueGhostModel;
-    private final YellowGhostModel yellowGhostModel;
-    private final RedGhostModel redGhostModel;
-    private final PinkGhostModel pinkGhostModel;
+
+    private final HashMap<String, GhostModel> ghosts;
+//    private final BlueGhostModel blueGhostModel;
+//    private final YellowGhostModel yellowGhostModel;
+//    private final RedGhostModel redGhostModel;
+//    private final PinkGhostModel pinkGhostModel;
 
     public void setxVelocityChange(int xVelocityChange) {
         this.xVelocityChange = xVelocityChange;
@@ -47,17 +53,31 @@ public class PacManModel {
 
         pacManView = new PacManView(root, health);
 
-        blueGhostModel = new BlueGhostModel(root);
-        blueGhostModel.ghostMovement();
+        ghosts = new HashMap<>();
+        try (BufferedReader ghostsFile = new BufferedReader(new FileReader("./src/main/resources/nsu/fit/usoltsev/pacmangamenew/GhostsProperties.txt"))) {
+            ghostsFile.readLine();
+            String line;
+            while ((line = ghostsFile.readLine()) != null) {
+                String[] args = line.split(" ");
+                ghosts.put(args[0], new GhostModel(root, Integer.parseInt(args[1]), Integer.parseInt(args[2]), args[3], args[4]));
+                ghosts.get(args[0]).ghostMovement();
+            }
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
 
-        yellowGhostModel = new YellowGhostModel(root);
-        yellowGhostModel.ghostMovement();
 
-        redGhostModel = new RedGhostModel(root);
-        redGhostModel.ghostMovement();
-
-        pinkGhostModel = new PinkGhostModel(root);
-        pinkGhostModel.ghostMovement();
+//        blueGhostModel = new BlueGhostModel(root);
+//        blueGhostModel.ghostMovement();
+//
+//        yellowGhostModel = new YellowGhostModel(root);
+//        yellowGhostModel.ghostMovement();
+//
+//        redGhostModel = new RedGhostModel(root);
+//        redGhostModel.ghostMovement();
+//
+//        pinkGhostModel = new PinkGhostModel(root);
+//        pinkGhostModel.ghostMovement();
     }
 
     private void setChanges(int position) {
@@ -73,7 +93,7 @@ public class PacManModel {
                 && yPosition - 1 <= ghostModel.getyPosition() && yPosition + 1 >= ghostModel.getyPosition());
     }
 
-    private void eatDot(){
+    private void eatDot() {
         if (Matrix.matrix[xPosition / Matrix.CELL_SIZE][yPosition / Matrix.CELL_SIZE] == Matrix.DOT) {
             DotModel.removeDot(xPosition / Matrix.CELL_SIZE, yPosition / Matrix.CELL_SIZE);
             score += Matrix.DOT_SCORE;
@@ -81,18 +101,14 @@ public class PacManModel {
     }
 
     public void movement() {
-
         AnimationTimer timer = new AnimationTimer() {
             @Override
             public void handle(long now) {
 
-                if (ghostBump(blueGhostModel) || ghostBump(redGhostModel) ||
-                        ghostBump(pinkGhostModel) || ghostBump(yellowGhostModel)) {
+                if (ghostBump(ghosts.get("red")) || ghostBump(ghosts.get("yellow")) || ghostBump(ghosts.get("pink")) || ghostBump(ghosts.get("blue"))) {
                     keyPressed = "GHOST_BUMP";
                     health--;
                 }
-
-
                 switch (keyPressed) {
                     case ("RIGHT") -> {
                         setChanges(yPosition);
@@ -101,7 +117,7 @@ public class PacManModel {
                                 xPosition = -Matrix.CELL_X_COUNT / 2;
                             }
                         } else if (yPosition % Matrix.CELL_SIZE == 0 && xPosition % Matrix.CELL_SIZE == 0) {
-                            if (Matrix.matrix[xPosition / Matrix.CELL_SIZE + 1][yPosition / Matrix.CELL_SIZE] == 1) {
+                            if (Matrix.matrix[xPosition / Matrix.CELL_SIZE + 1][yPosition / Matrix.CELL_SIZE] == Matrix.BORDER) {
                                 xVelocity = 0;
                             }
                             eatDot();
@@ -118,24 +134,22 @@ public class PacManModel {
                                 //  System.out.println(xPosition);
                             }
                         } else if (yPosition % Matrix.CELL_SIZE == 0 && xPosition % Matrix.CELL_SIZE == 0) {
-                            if (Matrix.matrix[xPosition / Matrix.CELL_SIZE - 1][yPosition / Matrix.CELL_SIZE] == 1) {
+                            if (Matrix.matrix[xPosition / Matrix.CELL_SIZE - 1][yPosition / Matrix.CELL_SIZE] == Matrix.BORDER) {
                                 xVelocity = 0;
                             } else if (xPosition / Matrix.CELL_SIZE >= Matrix.CELL_X_COUNT) {
                                 System.out.println();
-                            } else if (Matrix.matrix[xPosition / Matrix.CELL_SIZE][yPosition / Matrix.CELL_SIZE] == 2) {
+                            } else if (Matrix.matrix[xPosition / Matrix.CELL_SIZE][yPosition / Matrix.CELL_SIZE] == Matrix.DOT) {
 
                                 DotModel.removeDot(xPosition / Matrix.CELL_SIZE, yPosition / Matrix.CELL_SIZE);//????
                                 score += 10;
                             }
                         }
                         //TODO: fix dots
-
-
                     }
                     case ("UP") -> {
                         setChanges(xPosition);
                         if (xPosition % Matrix.CELL_SIZE == 0 && yPosition % Matrix.CELL_SIZE == 0) {
-                            if (Matrix.matrix[xPosition / Matrix.CELL_SIZE][yPosition / Matrix.CELL_SIZE - 1] == 1) {
+                            if (Matrix.matrix[xPosition / Matrix.CELL_SIZE][yPosition / Matrix.CELL_SIZE - 1] == Matrix.BORDER) {
                                 yVelocity = 0;
                             }
                             eatDot();
@@ -144,7 +158,7 @@ public class PacManModel {
                     case ("DOWN") -> {
                         setChanges(xPosition);
                         if (xPosition % Matrix.CELL_SIZE == 0 && yPosition % Matrix.CELL_SIZE == 0) {
-                            if (Matrix.matrix[xPosition / Matrix.CELL_SIZE][yPosition / Matrix.CELL_SIZE + 1] == 1) {
+                            if (Matrix.matrix[xPosition / Matrix.CELL_SIZE][yPosition / Matrix.CELL_SIZE + 1] == Matrix.BORDER) {
                                 yVelocity = 0;
                             }
                             eatDot();
@@ -157,12 +171,11 @@ public class PacManModel {
                         if (health != 0) {
                             xPosition = Matrix.CELL_SIZE * Matrix.CELL_X_COUNT / 2;
                             yPosition = Matrix.CELL_SIZE * (Matrix.CELL_Y_COUNT / 2 + 1);
-                        }
-                        if (health == 0) {
-                            redGhostModel.getTimer().stop();
-                            pinkGhostModel.getTimer().stop();
-                            yellowGhostModel.getTimer().stop();
-                            blueGhostModel.getTimer().stop();
+                        } else {
+                            ghosts.get("red").getTimer().stop();
+                            ghosts.get("pink").getTimer().stop();
+                            ghosts.get("yellow").getTimer().stop();
+                            ghosts.get("blue").getTimer().stop();
                             super.stop();
                         }
 
@@ -171,10 +184,10 @@ public class PacManModel {
                 if (score >= Matrix.MAX_SCORE) {
                     xVelocity = 0;
                     yVelocity = 0;
-                    redGhostModel.getTimer().stop();
-                    pinkGhostModel.getTimer().stop();
-                    yellowGhostModel.getTimer().stop();
-                    blueGhostModel.getTimer().stop();
+                    ghosts.get("red").getTimer().stop();
+                    ghosts.get("pink").getTimer().stop();
+                    ghosts.get("yellow").getTimer().stop();
+                    ghosts.get("blue").getTimer().stop();
                     super.stop();
                 }
 
