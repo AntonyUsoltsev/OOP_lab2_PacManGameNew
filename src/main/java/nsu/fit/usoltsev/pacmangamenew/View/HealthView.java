@@ -5,7 +5,6 @@ import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.text.Text;
 import nsu.fit.usoltsev.pacmangamenew.Control.PacManController;
 import nsu.fit.usoltsev.pacmangamenew.Model.Matrix;
 
@@ -31,7 +30,7 @@ public class HealthView {
         }
     }
 
-    public void drawHealth(int health, PacManController pacManController) {
+    public void drawHealth(int health) {
         if (health < hearts.size()) {
             root.getChildren().remove(hearts.getLast());
             hearts.removeLast();
@@ -40,16 +39,13 @@ public class HealthView {
                     root.getChildren().add(FXMLLoader.load(Objects.requireNonNull(HealthView.class.getResource("lose.fxml"))));
 
                     Button startBtn = (Button) root.lookup("#startButton");
-                    startBtn.setOnAction(event -> pacManController.newGame());
+                    startBtn.setOnAction(event -> PacManController.newGame());
 
                     Button endBtn = (Button) root.lookup("#exitButton");
                     endBtn.setOnAction(event -> System.exit(0));
-                    System.out.println("win");
+
                     Button menuButton = (Button) root.lookup("#menuButton");
-                    menuButton.setOnAction(event -> {
-                        System.out.println("nemu");
-                        pacManController.newMenu();
-                    });
+                    menuButton.setOnAction(event -> PacManController.newMenu());
 
                 } catch (IOException e) {
                     throw new RuntimeException(e);

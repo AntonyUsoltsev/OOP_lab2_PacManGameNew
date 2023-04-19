@@ -25,7 +25,7 @@ public class ScoreView {
         root.getChildren().add(scoreText);
     }
 
-    public void drawScore(int score, long time,PacManController pacManController) {
+    public void drawScore(int score, long time ) {
         scoreText.setText("Score: " + (score));
         if (score >= Matrix.MAX_SCORE) {
             try {
@@ -34,13 +34,13 @@ public class ScoreView {
                 setRecord(root, time);
 
                 Button startBtn = (Button) root.lookup("#startButton");
-                startBtn.setOnAction(event -> pacManController.newGame());
+                startBtn.setOnAction(event -> PacManController.newGame());
 
                 Button exitButton = (Button) root.lookup("#exitButton");
                 exitButton.setOnAction(event -> System.exit(0));
 
                 Button menuButton = (Button) root.lookup("#menuButton");
-                menuButton.setOnAction(event -> pacManController.newMenu());
+                menuButton.setOnAction(event -> PacManController.newMenu());
             } catch (Exception e) {
                 throw new RuntimeException(e);
             }
@@ -59,17 +59,17 @@ public class ScoreView {
                 okButton.setVisible(false);
                 try (BufferedReader recordFile = new BufferedReader(new FileReader("./src/main/resources/nsu/fit/usoltsev/pacmangamenew/records.txt"))) {
                     String line;
-                    HashMap<String, Long> recordMap = new HashMap<>();
+                    LinkedHashMap<String, Long> recordMap = new LinkedHashMap<>();
                     while ((line = recordFile.readLine()) != null) {
                         String[] args = line.split("\\s+");
                         recordMap.put(args[0], Long.parseLong(args[1]));
                     }
 
                     recordMap.put(name.getText(), time / 1_000_000_000);
-                    Map<String, Long> result = new LinkedHashMap<>();
+                    LinkedHashMap<String, Long> result = new LinkedHashMap<>();
                     recordMap.entrySet()
                             .stream()
-                            .sorted(Map.Entry.<String, Long>comparingByValue())
+                            .sorted(Map.Entry.comparingByValue())
                             .limit(10)
                             .forEach(e -> result.put(e.getKey(), e.getValue()));
 

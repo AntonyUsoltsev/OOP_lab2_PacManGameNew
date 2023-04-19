@@ -20,9 +20,6 @@ public class PacManView {
     private final HealthView healthView;
     private final ScoreView scoreView;
     private final TimeView timeView;
-
-    private final PacManController pacManController;
-
     private int i = 0;
 
     public PacManView(AnchorPane root, int health) {
@@ -32,7 +29,6 @@ public class PacManView {
         healthView = new HealthView(root, health);
         scoreView = new ScoreView(root);
         timeView = new TimeView(root);
-        pacManController = new PacManController();
     }
 
     void setPacManImage(Image image, Image imageClosed) {
@@ -58,8 +54,8 @@ public class PacManView {
         pacMan.setFitHeight(Matrix.CELL_SIZE);
         pacMan.setX(xPosition);
         pacMan.setY(yPosition);
-        scoreView.drawScore(score, curTime,pacManController);
-        healthView.drawHealth(health,pacManController);
+        scoreView.drawScore(score, curTime);
+        healthView.drawHealth(health);
         timeView.drawTime(curTime);
     }
 }

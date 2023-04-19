@@ -1,0 +1,8 @@
+#menuButton {
+    -fx-graphic: url(../../../../../pictures/menuButton.png);
+}
+
+.button {
+    -fx-background-color: transparent;
+    -fx-background-size: contain;
+}

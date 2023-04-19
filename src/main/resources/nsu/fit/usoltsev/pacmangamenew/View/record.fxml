@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane prefHeight="768.0" prefWidth="672.0" stylesheets="@record.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <Button fx:id="menuButton" layoutX="228.0" layoutY="641.0" mnemonicParsing="false" />
+      <TableView fx:id="recordTable" layoutX="186.0" layoutY="180.0" prefHeight="425.0" prefWidth="300.0">
+        <columns>
+          <TableColumn fx:id="nameColumn" prefWidth="153.0" text="Name" />
+          <TableColumn fx:id="timeColumn" prefWidth="146.0" text="Best time" />
+        </columns>
+      </TableView>
+   </children>
+</AnchorPane>

@@ -8,7 +8,6 @@ import nsu.fit.usoltsev.pacmangamenew.View.PacManView;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.Arrays;
 import java.util.HashMap;
 
 public class PacManModel {
@@ -45,7 +44,7 @@ public class PacManModel {
         this.keyPressed = "RIGHT";
 
         this.score = 3000;
-        this.health = 3;
+        this.health = 1;
 
         this.curTime = 0;
         this.startTime = Long.MAX_VALUE;
