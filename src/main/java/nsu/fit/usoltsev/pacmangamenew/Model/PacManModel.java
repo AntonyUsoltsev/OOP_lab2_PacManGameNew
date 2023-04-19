@@ -8,6 +8,7 @@ import nsu.fit.usoltsev.pacmangamenew.View.PacManView;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.HashMap;
 
 public class PacManModel {
@@ -56,7 +57,8 @@ public class PacManModel {
             ghostsFile.readLine();
             String line;
             while ((line = ghostsFile.readLine()) != null) {
-                String[] args = line.split(" ");
+                String[] args = line.split("\\s+");
+                System.out.println(Arrays.toString(args));
                 ghosts.put(args[0], new GhostModel(root, Integer.parseInt(args[1]), Integer.parseInt(args[2]), args[3], args[4]));
                 ghosts.get(args[0]).ghostMovement();
             }

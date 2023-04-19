@@ -1,5 +1,5 @@
-color startX startY startDirection picture
-red 24 720 RIGHT ./src/main/resources/pictures/GhostPictures/RedGhost.png
-yellow 624 24 LEFT ./src/main/resources/pictures/GhostPictures/YellowGhost.png
-blue 24 24 RIGHT ./src/main/resources/pictures/GhostPictures/BlueGhost.png
-pink 624 720 LEFT ./src/main/resources/pictures/GhostPictures/PinkGhost.png
+color   startX  startY  startDirection  picture
+red     24      720     RIGHT           /pictures/GhostPictures/RedGhost.png
+yellow  624     24      LEFT            /pictures/GhostPictures/YellowGhost.png
+blue    24      24      RIGHT           /pictures/GhostPictures/BlueGhost.png
+pink    624     720     LEFT            /pictures/GhostPictures/PinkGhost.png

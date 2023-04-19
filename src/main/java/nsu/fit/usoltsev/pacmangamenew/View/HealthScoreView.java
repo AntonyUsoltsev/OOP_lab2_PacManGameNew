@@ -12,32 +12,29 @@ import javafx.scene.text.Text;
 import nsu.fit.usoltsev.pacmangamenew.Control.PacManController;
 import nsu.fit.usoltsev.pacmangamenew.Model.*;
 
-import java.io.File;
+import java.io.IOException;
 import java.util.LinkedList;
 import java.util.Objects;
 
 public class HealthScoreView {
-    static AnchorPane root;
-    static private Text scoreText;
-    static private Text time;
-    static private final LinkedList<ImageView> hearts = new LinkedList<>();
+    private final AnchorPane root;
+    private Text scoreText;
+    private Text time;
+    private final LinkedList<ImageView> hearts = new LinkedList<>();
 
-    public static void setRoot(AnchorPane root) {
-        HealthScoreView.root = root;
+    public HealthScoreView(AnchorPane root) {
+        this.root = root;
     }
 
-    public static void setScore() {
-        scoreText = new Text();
-        scoreText.setX(40);
-        scoreText.setY(20);
+    public void setScore() {
+        scoreText = new Text(40, 20, "");
         scoreText.setFill(Color.YELLOW);
         scoreText.setFont(new Font(20));
         root.getChildren().add(scoreText);
     }
 
-    public static void setHealth(int health) {
-        File heartFile = new File("./src/main/resources/pictures/Heart.png");
-        Image heartImage = new Image(heartFile.toURI().toString());
+    public void setHealth(int health) {
+        Image heartImage = new Image("pictures/Heart.png");
         for (int i = 0; i < health; i++) {
             ImageView heart = new ImageView(heartImage);
             heart.setFitWidth(Matrix.CELL_SIZE);
@@ -49,16 +46,14 @@ public class HealthScoreView {
         }
     }
 
-    public static void setTime() {
-        time= new Text();
-        time.setX(500);
-        time.setY(20);
+    public void setTime() {
+        time = new Text(500, 20, "");
         time.setFill(Color.YELLOW);
         time.setFont(new Font(20));
         root.getChildren().add(time);
     }
 
-    public static void drawScore(int score) {
+    public void drawScore(int score) {
         scoreText.setText("Score: " + (score));
         if (score >= Matrix.MAX_SCORE) {
             try {
@@ -77,7 +72,7 @@ public class HealthScoreView {
 
     }
 
-    public static void drawHealth(int health) {
+    public void drawHealth(int health) {
         if (health < hearts.size()) {
             root.getChildren().remove(hearts.getLast());
             hearts.removeLast();
@@ -91,18 +86,15 @@ public class HealthScoreView {
                     Button endBtn = (Button) root.lookup("#endButton");
                     endBtn.setOnAction(event -> System.exit(0));
 
-                } catch (Exception e) {
+                } catch (IOException e) {
                     throw new RuntimeException(e);
                 }
             }
-
         }
-
     }
 
-    public static void drawTime(long curTime){
-        time.setText("Time: " +(curTime/1_000_000_000) + " sec");
+    public void drawTime(long curTime) {
+        time.setText("Time: " + (curTime / 1_000_000_000) + " sec");
     }
-
 
 }
