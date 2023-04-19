@@ -160,13 +160,12 @@ public class PacManModel {
                         xVelocity = 0;
                         yVelocity = 0;
                         if (health != 0) {
-                            xPosition = Matrix.CELL_SIZE * Matrix.CELL_X_COUNT / 2;
-                            yPosition = Matrix.CELL_SIZE * (Matrix.CELL_Y_COUNT / 2 + 1);
+                            xPosition = Matrix.X_SPAWN;
+                            yPosition = Matrix.Y_SPAWN;
                         } else {
-                            ghosts.get("red").getTimer().stop();
-                            ghosts.get("pink").getTimer().stop();
-                            ghosts.get("yellow").getTimer().stop();
-                            ghosts.get("blue").getTimer().stop();
+                            for (var pair : ghosts.entrySet()) {
+                               pair.getValue().getTimer().stop();
+                            }
                             super.stop();
                         }
 
@@ -175,10 +174,9 @@ public class PacManModel {
                 if (score >= Matrix.MAX_SCORE) {
                     xVelocity = 0;
                     yVelocity = 0;
-                    ghosts.get("red").getTimer().stop();
-                    ghosts.get("pink").getTimer().stop();
-                    ghosts.get("yellow").getTimer().stop();
-                    ghosts.get("blue").getTimer().stop();
+                    for (var pair : ghosts.entrySet()) {
+                        pair.getValue().getTimer().stop();
+                    }
                     super.stop();
                 }
 

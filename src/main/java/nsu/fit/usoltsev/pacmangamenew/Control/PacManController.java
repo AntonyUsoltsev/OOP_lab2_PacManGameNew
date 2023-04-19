@@ -19,37 +19,27 @@ public class PacManController {
 
     public static void newGame() {
         root.getChildren().clear();
-        root.setBackground(new Background(new BackgroundFill(Color.rgb(2, 0, 9),new CornerRadii(0), Insets.EMPTY)));
+        root.setBackground(new Background(new BackgroundFill(Color.rgb(2, 0, 10), new CornerRadii(0), Insets.EMPTY)));
         Matrix.setMatrix();
         FieldModel.viewField(root);
         DotModel.setDots(root);
-        pacManModel = new PacManModel(0, 0, Matrix.CELL_SIZE * Matrix.CELL_X_COUNT / 2, Matrix.CELL_SIZE * (Matrix.CELL_Y_COUNT / 2 + 1), "RIGHT", root);
+        pacManModel = new PacManModel(0, 0, Matrix.X_SPAWN, Matrix.Y_SPAWN, "RIGHT", root);
         control(scene);
+    }
+
+    private static void action(String direction, int xVel, int yVel) {
+        pacManModel.setKeyPressed(direction);
+        pacManModel.setxVelocityChange(xVel);
+        pacManModel.setyVelocityChange(yVel);
     }
 
     public static void control(Scene scene) {
         scene.setOnKeyPressed(event -> {
             switch (event.getCode()) {
-                case RIGHT -> {
-                    pacManModel.setKeyPressed("RIGHT");
-                    pacManModel.setxVelocityChange(2);
-                    pacManModel.setyVelocityChange(0);
-                }
-                case LEFT -> {
-                    pacManModel.setKeyPressed("LEFT");
-                    pacManModel.setxVelocityChange(-2);
-                    pacManModel.setyVelocityChange(0);
-                }
-                case DOWN -> {
-                    pacManModel.setKeyPressed("DOWN");
-                    pacManModel.setxVelocityChange(0);
-                    pacManModel.setyVelocityChange(2);
-                }
-                case UP -> {
-                    pacManModel.setKeyPressed("UP");
-                    pacManModel.setxVelocityChange(0);
-                    pacManModel.setyVelocityChange(-2);
-                }
+                case RIGHT -> action("RIGHT", 2, 0);
+                case LEFT -> action("LEFT", -2, 0);
+                case DOWN -> action("DOWN", 0, 2);
+                case UP -> action("UP", 0, -2);
                 case SPACE -> {
                     pacManModel.setxVelocityChange(0);
                     pacManModel.setyVelocityChange(0);

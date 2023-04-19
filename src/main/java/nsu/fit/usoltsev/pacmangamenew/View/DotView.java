@@ -11,7 +11,6 @@ import java.util.HashMap;
 public class DotView {
     HashMap<Integer, Rectangle> dotList;
     AnchorPane root;
-    HealthScoreView healthScoreView;
 
     public DotView(AnchorPane root) {
         this.root = root;

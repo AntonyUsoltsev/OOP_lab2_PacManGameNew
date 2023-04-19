@@ -16,17 +16,19 @@ public class PacManView {
             imageUpClosed = new Image("/pictures/PacManPictures/PacmanUpClosed.png"),
             imageDownClosed = new Image("/pictures/PacManPictures/PacmanDownClosed.png");
     private final ImageView pacMan;
-    private final HealthScoreView healthScoreView;
+    private final HealthView healthView;
+    private final ScoreView scoreView;
+    private final TimeView timeView;
+
     private int i = 0;
 
     public PacManView(AnchorPane root, int health) {
         pacMan = new ImageView();
         root.getChildren().add(pacMan);
 
-        healthScoreView = new HealthScoreView(root);
-        healthScoreView.setScore();
-        healthScoreView.setHealth(health);
-        healthScoreView.setTime();
+        healthView = new HealthView(root,health);
+        scoreView = new ScoreView(root);
+        timeView = new TimeView(root);
     }
 
     void setPacManImage(Image image, Image imageClosed) {
@@ -52,8 +54,8 @@ public class PacManView {
         pacMan.setFitHeight(Matrix.CELL_SIZE);
         pacMan.setX(xPosition);
         pacMan.setY(yPosition);
-        healthScoreView.drawScore(score);
-        healthScoreView.drawHealth(health);
-        healthScoreView.drawTime(curTime);
+        scoreView.drawScore(score);
+        healthView.drawHealth(health);
+        timeView.drawTime(curTime);
     }
 }
