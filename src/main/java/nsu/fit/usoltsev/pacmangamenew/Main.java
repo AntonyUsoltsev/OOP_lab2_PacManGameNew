@@ -20,19 +20,11 @@ public class Main extends javafx.application.Application {
 
     @Override
     public void start(Stage stage) throws IOException {
-        AnchorPane root = FXMLLoader.load(Objects.requireNonNull(Main.class.getResource("menu.fxml")));
-        Scene scene = new Scene(root, Matrix.CELL_SIZE * Matrix.CELL_X_COUNT, Matrix.CELL_SIZE * Matrix.CELL_Y_COUNT);
+
         WindowView.setWindowOptions(stage);
-        Button startBtn = (Button) root.lookup("#startButton");
-        Button endBtn = (Button) root.lookup("#endButton");
-        PacManController.scene = scene;
-        PacManController.root = root;
-
-        startBtn.setOnAction(event -> PacManController.newGame());
-
-        endBtn.setOnAction(event -> System.exit(0));
-
-        stage.setScene(PacManController.scene);
+        PacManController pacManController = new PacManController(stage);
+        pacManController.newMenu();
+        stage.setScene(pacManController.scene);
         stage.setResizable(false);
         stage.show();
         }

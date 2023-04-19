@@ -44,7 +44,7 @@ public class PacManModel {
         this.yVelocityChange = 0;
         this.keyPressed = "RIGHT";
 
-        this.score = 0;
+        this.score = 3000;
         this.health = 3;
 
         this.curTime = 0;
@@ -58,7 +58,6 @@ public class PacManModel {
             String line;
             while ((line = ghostsFile.readLine()) != null) {
                 String[] args = line.split("\\s+");
-                System.out.println(Arrays.toString(args));
                 ghosts.put(args[0], new GhostModel(root, Integer.parseInt(args[1]), Integer.parseInt(args[2]), args[3], args[4]));
                 ghosts.get(args[0]).ghostMovement();
             }

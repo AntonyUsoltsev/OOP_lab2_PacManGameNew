@@ -1,10 +1,13 @@
-#startButton{
-    /*-fx-background-color: RED;*/
-    -fx-graphic: url(../../../../../pictures/newStart.png);
+#startButton {
+    -fx-graphic: url(../../../../../pictures/playButton.png);
 }
 
-#endButton{
-    -fx-graphic: url(../../../../../pictures/newExit.png);
+#exitButton {
+    -fx-graphic: url(../../../../../pictures/exitButton.png);
+}
+
+#menuButton {
+    -fx-graphic: url(../../../../../pictures/menuButton.png);
 }
 
 .button {

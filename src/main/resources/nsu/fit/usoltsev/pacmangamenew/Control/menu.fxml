@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane fx:id="back" prefHeight="768.0" prefWidth="672.0" stylesheets="@menu.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1">
+    <ImageView fitHeight="190.0" fitWidth="583.0" layoutX="55.0" layoutY="87.0" pickOnBounds="true" preserveRatio="true">
+        <Image url="@../../../../../pictures/PacmanLogo.png" />
+    </ImageView>
+    <Button fx:id="startButton"  layoutX="228.0" layoutY="377.0" mnemonicParsing="false" />
+    <Button fx:id="highscoresButton" layoutX="228.0" layoutY="466.0" mnemonicParsing="false" />
+    <Button fx:id="helpButton" layoutX="228.0" layoutY="558.0" mnemonicParsing="false" />
+    <Button fx:id="exitButton" layoutX="228.0" layoutY="660.0" mnemonicParsing="false" />
+</AnchorPane>

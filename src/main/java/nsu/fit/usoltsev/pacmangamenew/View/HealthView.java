@@ -17,7 +17,7 @@ public class HealthView {
     private final AnchorPane root;
     private final LinkedList<ImageView> hearts = new LinkedList<>();
 
-    public HealthView(AnchorPane root, int health){
+    public HealthView(AnchorPane root, int health) {
         this.root = root;
         Image heartImage = new Image("pictures/Heart.png");
         for (int i = 0; i < health; i++) {
@@ -31,7 +31,7 @@ public class HealthView {
         }
     }
 
-    public void drawHealth(int health) {
+    public void drawHealth(int health, PacManController pacManController) {
         if (health < hearts.size()) {
             root.getChildren().remove(hearts.getLast());
             hearts.removeLast();
@@ -40,10 +40,16 @@ public class HealthView {
                     root.getChildren().add(FXMLLoader.load(Objects.requireNonNull(HealthView.class.getResource("lose.fxml"))));
 
                     Button startBtn = (Button) root.lookup("#startButton");
-                    startBtn.setOnAction(event -> PacManController.newGame());
+                    startBtn.setOnAction(event -> pacManController.newGame());
 
-                    Button endBtn = (Button) root.lookup("#endButton");
+                    Button endBtn = (Button) root.lookup("#exitButton");
                     endBtn.setOnAction(event -> System.exit(0));
+                    System.out.println("win");
+                    Button menuButton = (Button) root.lookup("#menuButton");
+                    menuButton.setOnAction(event -> {
+                        System.out.println("nemu");
+                        pacManController.newMenu();
+                    });
 
                 } catch (IOException e) {
                     throw new RuntimeException(e);

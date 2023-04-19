@@ -1,0 +1,24 @@
+#back {
+    -fx-background-image: url(../../../../../pictures/background.jpg);
+    -fx-background-size: cover;
+}
+#startButton{
+    -fx-graphic: url(../../../../../pictures/playButton.png);
+}
+
+#exitButton{
+    -fx-graphic: url(../../../../../pictures/exitButton.png);
+}
+
+#helpButton{
+    -fx-graphic: url(../../../../../pictures/helpButton.png);
+}
+
+#highscoresButton{
+    -fx-graphic: url(../../../../../pictures/highscoreButton.png);
+}
+.button {
+    -fx-background-color: transparent;
+    -fx-background-size: contain;
+}
+
