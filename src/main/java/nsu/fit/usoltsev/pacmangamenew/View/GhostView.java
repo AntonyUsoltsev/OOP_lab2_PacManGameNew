@@ -1,4 +1,4 @@
-package nsu.fit.usoltsev.pacmangamenew.View.Ghosts;
+package nsu.fit.usoltsev.pacmangamenew.View;
 
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;

@@ -3,7 +3,6 @@ package nsu.fit.usoltsev.pacmangamenew.Model;
 import javafx.animation.AnimationTimer;
 import javafx.scene.layout.AnchorPane;
 
-import nsu.fit.usoltsev.pacmangamenew.Model.Ghosts.*;
 import nsu.fit.usoltsev.pacmangamenew.View.PacManView;
 
 import java.io.BufferedReader;
@@ -15,15 +14,11 @@ public class PacManModel {
     private int xVelocity, yVelocity, xPosition, yPosition;
     private String direction;
     private int score, health;
+    private long startTime, curTime;
     private int xVelocityChange, yVelocityChange;
     private String keyPressed;
     private final PacManView pacManView;
-
     private final HashMap<String, GhostModel> ghosts;
-//    private final BlueGhostModel blueGhostModel;
-//    private final YellowGhostModel yellowGhostModel;
-//    private final RedGhostModel redGhostModel;
-//    private final PinkGhostModel pinkGhostModel;
 
     public void setxVelocityChange(int xVelocityChange) {
         this.xVelocityChange = xVelocityChange;
@@ -51,6 +46,9 @@ public class PacManModel {
         this.score = 0;
         this.health = 3;
 
+        this.curTime = 0;
+        this.startTime = Long.MAX_VALUE;
+
         pacManView = new PacManView(root, health);
 
         ghosts = new HashMap<>();
@@ -65,19 +63,6 @@ public class PacManModel {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-
-
-//        blueGhostModel = new BlueGhostModel(root);
-//        blueGhostModel.ghostMovement();
-//
-//        yellowGhostModel = new YellowGhostModel(root);
-//        yellowGhostModel.ghostMovement();
-//
-//        redGhostModel = new RedGhostModel(root);
-//        redGhostModel.ghostMovement();
-//
-//        pinkGhostModel = new PinkGhostModel(root);
-//        pinkGhostModel.ghostMovement();
     }
 
     private void setChanges(int position) {
@@ -104,47 +89,52 @@ public class PacManModel {
         AnimationTimer timer = new AnimationTimer() {
             @Override
             public void handle(long now) {
+                if (now < startTime)
+                    startTime = now;
 
-                if (ghostBump(ghosts.get("red")) || ghostBump(ghosts.get("yellow")) || ghostBump(ghosts.get("pink")) || ghostBump(ghosts.get("blue"))) {
-                    keyPressed = "GHOST_BUMP";
-                    health--;
+                curTime = now - startTime;
+
+                for (var pair : ghosts.entrySet()) {
+                    if (ghostBump(pair.getValue())) {
+                        keyPressed = "GHOST_BUMP";
+                        health--;
+                    }
                 }
+
                 switch (keyPressed) {
                     case ("RIGHT") -> {
                         setChanges(yPosition);
-                        if (xPosition / Matrix.CELL_SIZE + 1 >= Matrix.CELL_X_COUNT) {
+                        if (xPosition > (Matrix.CELL_X_COUNT - 1) * Matrix.CELL_SIZE) {
                             if (xPosition % Matrix.CELL_SIZE > Matrix.CELL_SIZE / 2) {
                                 xPosition = -Matrix.CELL_X_COUNT / 2;
                             }
                         } else if (yPosition % Matrix.CELL_SIZE == 0 && xPosition % Matrix.CELL_SIZE == 0) {
-                            if (Matrix.matrix[xPosition / Matrix.CELL_SIZE + 1][yPosition / Matrix.CELL_SIZE] == Matrix.BORDER) {
+                            if (xPosition == (Matrix.CELL_X_COUNT - 1) * Matrix.CELL_SIZE) {
+                                eatDot();
+                            } else if (Matrix.matrix[xPosition / Matrix.CELL_SIZE + 1][yPosition / Matrix.CELL_SIZE] == Matrix.BORDER) {
                                 xVelocity = 0;
-                            }
-                            eatDot();
-
-                        }
-                    }
-                    case ("LEFT") -> {
-                        setChanges(yPosition);
-                        if (xPosition / Matrix.CELL_SIZE <= 0) {
-                            // System.out.println(xPosition);
-                            if (xPosition % Matrix.CELL_SIZE <= -Matrix.CELL_SIZE / 2) {
-                                //System.out.println(xPosition % Matrix.CELL_SIZE);
-                                xPosition = Matrix.CELL_X_COUNT * Matrix.CELL_SIZE + Matrix.CELL_X_COUNT / 2;
-                                //  System.out.println(xPosition);
-                            }
-                        } else if (yPosition % Matrix.CELL_SIZE == 0 && xPosition % Matrix.CELL_SIZE == 0) {
-                            if (Matrix.matrix[xPosition / Matrix.CELL_SIZE - 1][yPosition / Matrix.CELL_SIZE] == Matrix.BORDER) {
-                                xVelocity = 0;
-                            } else if (xPosition / Matrix.CELL_SIZE >= Matrix.CELL_X_COUNT) {
-                                System.out.println();
                             } else if (Matrix.matrix[xPosition / Matrix.CELL_SIZE][yPosition / Matrix.CELL_SIZE] == Matrix.DOT) {
-
                                 DotModel.removeDot(xPosition / Matrix.CELL_SIZE, yPosition / Matrix.CELL_SIZE);//????
                                 score += 10;
                             }
                         }
-                        //TODO: fix dots
+                    }
+                    case ("LEFT") -> {
+                        setChanges(yPosition);
+                        if (xPosition < 0) {
+                            if (xPosition % Matrix.CELL_SIZE <= -Matrix.CELL_SIZE / 2) {
+                                xPosition = Matrix.CELL_X_COUNT * Matrix.CELL_SIZE + Matrix.CELL_X_COUNT / 2;
+                            }
+                        } else if (yPosition % Matrix.CELL_SIZE == 0 && xPosition % Matrix.CELL_SIZE == 0) {
+                            if (xPosition == 0) {
+                                eatDot();
+                            } else if (Matrix.matrix[xPosition / Matrix.CELL_SIZE - 1][yPosition / Matrix.CELL_SIZE] == Matrix.BORDER) {
+                                xVelocity = 0;
+                            } else if (xPosition != Matrix.CELL_X_COUNT * Matrix.CELL_SIZE && Matrix.matrix[xPosition / Matrix.CELL_SIZE][yPosition / Matrix.CELL_SIZE] == Matrix.DOT) {
+                                DotModel.removeDot(xPosition / Matrix.CELL_SIZE, yPosition / Matrix.CELL_SIZE);//????
+                                score += 10;
+                            }
+                        }
                     }
                     case ("UP") -> {
                         setChanges(xPosition);
@@ -162,7 +152,6 @@ public class PacManModel {
                                 yVelocity = 0;
                             }
                             eatDot();
-
                         }
                     }
                     case ("GHOST_BUMP") -> {
@@ -193,7 +182,7 @@ public class PacManModel {
 
                 xPosition += xVelocity;
                 yPosition += yVelocity;
-                pacManView.viewPacMan(xPosition, yPosition, direction, score, health);
+                pacManView.viewPacMan(xPosition, yPosition, direction, score, health, curTime);
             }
         };
 

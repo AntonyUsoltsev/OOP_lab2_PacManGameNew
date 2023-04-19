@@ -19,6 +19,7 @@ import java.util.Objects;
 public class HealthScoreView {
     static AnchorPane root;
     static private Text scoreText;
+    static private Text time;
     static private final LinkedList<ImageView> hearts = new LinkedList<>();
 
     public static void setRoot(AnchorPane root) {
@@ -27,7 +28,7 @@ public class HealthScoreView {
 
     public static void setScore() {
         scoreText = new Text();
-        scoreText.setX(20);
+        scoreText.setX(40);
         scoreText.setY(20);
         scoreText.setFill(Color.YELLOW);
         scoreText.setFont(new Font(20));
@@ -41,15 +42,24 @@ public class HealthScoreView {
             ImageView heart = new ImageView(heartImage);
             heart.setFitWidth(Matrix.CELL_SIZE);
             heart.setFitHeight(Matrix.CELL_SIZE);
-            heart.setX(24 * (i + 3));
+            heart.setX(24 * (i + 6));
             heart.setY(0);
             hearts.add(heart);
             root.getChildren().add(hearts.get(i));
         }
     }
 
+    public static void setTime() {
+        time= new Text();
+        time.setX(500);
+        time.setY(20);
+        time.setFill(Color.YELLOW);
+        time.setFont(new Font(20));
+        root.getChildren().add(time);
+    }
+
     public static void drawScore(int score) {
-        scoreText.setText(Integer.toString(score));
+        scoreText.setText("Score: " + (score));
         if (score >= Matrix.MAX_SCORE) {
             try {
                 root.getChildren().add(FXMLLoader.load(Objects.requireNonNull(HealthScoreView.class.getResource("win.fxml"))));
@@ -88,6 +98,10 @@ public class HealthScoreView {
 
         }
 
+    }
+
+    public static void drawTime(long curTime){
+        time.setText("Time: " +(curTime/1_000_000_000) + " sec");
     }
 
 

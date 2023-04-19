@@ -40,6 +40,7 @@ public class PacManView {
         HealthScoreView.setRoot(root);
         HealthScoreView.setScore();
         HealthScoreView.setHealth(health);
+        HealthScoreView.setTime();
     }
 
     void setPacManImage(Image image, Image imageClosed) {
@@ -54,7 +55,7 @@ public class PacManView {
         }
     }
 
-    public void viewPacMan(int xPosition, int yPosition, String direction, int score, int health) {
+    public void viewPacMan(int xPosition, int yPosition, String direction, int score, int health, long curTime) {
         switch (direction) {
             case "RIGHT" -> setPacManImage(imageRight, imageRightClosed);
             case "LEFT" -> setPacManImage(imageLeft, imageLeftClosed);
@@ -67,5 +68,6 @@ public class PacManView {
         pacMan.setY(yPosition);
         HealthScoreView.drawScore(score);
         HealthScoreView.drawHealth(health);
+        HealthScoreView.drawTime(curTime);
     }
 }
